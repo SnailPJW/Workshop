@@ -1,0 +1,302 @@
+html {
+    font-size: 16px;
+}
+.collegName{
+    letter-spacing: 8px;
+    margin-top: 5px !important;
+}
+#editor-container {
+  height: 375px;
+}
+.ts.label:last-child{
+    margin-right: 0.5em;
+}
+/*沃課播種 選額課程封面*/
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper .file-upload {
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #FFFFFF;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #333333 50%, #FFFFFF 50%);
+  background-size: 100% 200%;
+  transition: all 1s;
+  color: #FFFFFF;
+  font-size: 100px;
+}
+.wrapper .file-upload input[type='file'] {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.wrapper .file-upload:hover {
+  background-position: 0 -100%;
+  color: #333333;
+}
+/*播種人員*/
+.teacher-box {
+    float: left;
+    padding: 10px;
+    background: #FFF;
+    border: 1px solid #CCC;
+    text-align: center;
+    margin: 12px;
+    opacity: 1;
+    transition: opacity 0.3s, width 0.3s;
+    -webkit-transition: opacity 0.3s, width 0.3s;
+    -moz-transition: opacity 0.3s, width 0.3s;
+}
+#teachersImg{
+    height: 160px;
+    width: 140px;
+    display: block;
+}
+.teacher-box:hover {
+    opacity: 0.8;
+}
+
+.Tname {
+    display: block;
+    background: #666;
+    color: #FFF;
+    font-size: 20px;
+}
+.on-site-msg-btn{
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: left;
+    overflow:hidden;
+}
+.onsitemsg-panel{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), -4px 0 8px 0 rgba(0, 0, 0, 0.2), 4px 0 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 15px 15px 15px 15px;
+}
+.on-site-msg-icon{
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-weight: 900;
+    background-color: red;
+    color:white;
+    border-radius: 25%;
+    z-index: -1;
+}
+.bottom-float-panel{
+    width: 80%;
+    position: fixed; 
+    bottom: 0;
+    background-color: rgb(200,200,200);
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), -4px 0 8px 0 rgba(0, 0, 0, 0.2), 4px 0 8px 0 rgba(0, 0, 0, 0.2);
+    
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+}
+.ticket-content-panel textarea{
+    width: 100%;
+    height:90%;
+}
+.ticket-master-panel{
+    background-color: rgb(233,233,200);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), -4px 0 8px 0 rgba(0, 0, 0, 0.2), -4px 4px 16px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 15px 15px 15px 15px;
+    height:500px;
+}
+.ticket-master-panel div{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(200,200,200);
+    border-radius: 15px 15px 15px 15px;
+    overflow-y: scroll;
+    height:80%;
+}
+
+.ticket-master-panel button{
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: left;
+    overflow:hidden;
+}
+.play-selector{
+    border-radius: 15px;
+    border-style:outset;
+    border-width: 1px;
+}
+.online-play-btn{
+    width:100%;
+    white-space: normal;
+    text-align: left;
+    word-wrap: break-word;
+    
+    margin-top: 5px;
+}
+.session_container{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px;
+    
+    border-radius: 15px;
+    border-color: rgb(128,128,255);
+    border-style:outset;
+    border-width: 1px;
+    
+    white-space: normal;
+    word-wrap: break-word;
+}
+.session_container span{
+    font-size: 2.5em;
+    word-wrap: break-word;
+}
+.session_container button{
+    margin-top: 2px;
+    margin-bottom: 4px;
+    
+    margin-left: 5px;
+}
+.right_side_panel{
+    width: 320px;
+    background-color: rgb(255,255,255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.user-icon-picture{
+    width:250px;
+    border-radius: 30%;
+    border-color: rgb(128,128,255);
+    border-style:outset;
+    border-width: 1px;
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+.account_picker{
+    color:blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+div.toolbar{
+    float: left;
+    margin-bottom: 1em;
+}
+td.link_style {
+    color: rgb(0,0,255);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link_style{
+    color: rgb(0,0,255);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.center_text{
+    text-align:center;
+}
+.small_margin{
+    margin-top: 20px;
+}
+
+.blue_round_border{
+    border: 2px solid rgb(180,180,255);
+    border-radius: 5px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.course-preview-panel{
+    width: 300px;
+    height:380px;
+    margin: 20px;
+}
+h3.course-preview-text-title{
+    white-space: nowrap;
+    overflow: hidden;
+}
+.course-preview-text-title small{
+    white-space:normal;
+}
+.course-preview-img-container{
+    width:300px;
+    height: 210px;
+    padding-top: 30px;
+}
+.course-preview-teacher-img-container{
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    z-index: 1;
+    width:55px;
+    height:55px;
+    background-color: white;
+    border-radius: 30%;
+    border-color: rgb(128,128,255);
+    border-style:outset;
+    border-width: 1px;
+}
+.course-preview-teacher-img{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width:90%;
+    height:90%;
+    border-radius: 30%;
+}
+.course-preview-img{
+    width:100%;
+    height:100%;
+}
+.course-preview-text{
+    height:130px;
+    overflow: hidden;
+}
+.course-preview-fundraise{
+    text-align:center;
+    overflow: hidden;
+}
+.session_input{
+    margin: 5px;
+}
+
+video::-internal-media-controls-download-button {
+    display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+video::-webkit-media-controls-panel {
+    width: calc(100% + 30px); /* Adjust as needed */
+}
