@@ -194,8 +194,7 @@ $( "#tabs" ).tabs();
         output['TUTORIAL_SESSION_TITLES'] = tut_sessions;
         //get summernote code
         // output['INTRODUCTION'] = $('#summernote').summernote('code');        
-        output['INTRODUCTION'] = JSON.stringify(simplemde.getContents());
-        alert(output['INTRODUCTION']);
+        output['INTRODUCTION'] = JSON.stringify(simplemde.value());        
         output['IMAGE_ID'] = tutorialImgRow['IMAGE_ID'];
 
         return output;
