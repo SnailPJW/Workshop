@@ -156,17 +156,7 @@ $( "#tabs" ).tabs();
     //頁籤Tab效果 END
     //Editor 效果
     var simplemde = new SimpleMDE({ element: document.getElementById("mde"), spellChecker: false, status: false });
-    // var quill = new Quill('#editor-container', {
-    //   modules: {
-    //     toolbar: [
-    //       [{ header: [1, 2, false] }],
-    //       ['bold', 'italic', 'underline'],
-    //       ['image', 'code-block']
-    //     ]
-    //   },
-    //   placeholder: 'Compose an epic...',
-    //   theme: 'snow'  // or 'bubble'
-    // });
+    
     //End Editor
 
     function gatherAllInfo(){
@@ -244,11 +234,11 @@ $( "#tabs" ).tabs();
     function submitNewTutorial(){
         var post_data = gatherAllInfo();
         if(post_data === false) return;
-        SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(){
-            alert('課程新增成功,待官方人員核准就會進入募資階段!');
-            //callAgilepoint();
-            window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
-        });
+        callAgilepoint(post_data);
+        // SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(){
+        //     alert('課程新增成功,待官方人員核准就會進入募資階段!');
+        //     window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
+        // });
     }
     var tutorialImgRow = null;
     function removeSession(jq_button){
@@ -326,4 +316,172 @@ $( "#tabs" ).tabs();
         });
         
     });
+var settings123={};
+var pin;
+var pid;
+var uuid;
+//觸發AgilePoint審核流程    
+function callAgilepoint(postData) {
+
+    // var imgURL = $('#course-preview-img').attr('src');
+    // var timestamp = new Date().getUTCMilliseconds();
+    // var dt = new Date().toLocaleString(); 
+    // pin = "Workshop Course - " + dt + ":" + timestamp;
+    pid = GetPID();
+    // uuid = GetUUID(); 
+    // var data = {
+    //         "ProcInstName": pin,
+    //         "ProcessID": pid,
+    //         "WorkObjID": uuid,
+    //         "blnStartImmediately": true,
+    //         "Initiator": "測試人員PJW",//觸發流程之人(欲開課之老師)
+    //         "Attributes": []
+    // };
+    // alert(JSON.stringify(data));
+    // var preS = "/pd:AP/pd:formFields/pd:tbxCourse";
+    // var boxName = ["Name","Brief","Level","OpenDate","StuNum","Len","ImgUrl","ItemNeed","Background","StuOutput","UnitPlan","Detail"];
+    // var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],"很多單元",postData['INTRODUCTION']];
+    // alert(inputValue); 
+    // // $('.course').each(function(){
+    // //     inputValue.push(this.value);
+    // // })
+    // for(var i=0; i < boxName.length; i++){
+    //     data.Attributes.push({Name:preS+boxName[i],Value:inputValue[i]});
+    // }
+    // alert(JSON.stringify(data));
+    // settings123 = {
+    //     "async": true,
+    //     "crossDomain": true,
+    //     "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/CreateProcInst",
+    //     "method": "POST",
+    //     "headers": {
+    //         "Access-Control-Allow-Origin": "*",
+    //         "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
+    //         "content-type": "application/json",
+    //         "cache-control": "no-cache",
+    //         "postman-token": "7aaaf79e-a8c7-8d2d-d387-20752abdd113"
+    //     },        
+    //     "processData": false,
+    //     "data":JSON.stringify(data),
+    //     success: function(msg){
+    //         alert(msg);
+    //     },
+    //     error:function(xhr, ajaxOptions, thrownError){ 
+    //         alert(xhr.status); 
+    //         alert(thrownError); 
+    //     }        
+    // }     
+
+    // $.ajax(settings).done();            
+}
+
+function GetPID(){
+    var result;
+    var procName = "WorkshopReview";//填上流程名稱
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/GetReleasedPID/"+procName,
+        "method": "GET",
+        "headers": {
+            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHVzZXIwNjpwQHNzdzByZA==",
+            "cache-control": "no-cache",
+            "postman-token": "91280bb5-bf39-0395-5f92-7fbc742a9efd"
+        }
+    }
+    
+    $.ajax(settings).done(function (response) {
+        result = response.GetReleasedPIDResult;
+        pid = response.GetReleasedPIDResult;
+        alert(result);
+        GetUUID(pid);
+    });
+    return result;
+}
+function GetUUID(pid){
+    var result;
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/GetUUID",
+        "method": "GET",
+        "headers": {
+            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
+            "cache-control": "no-cache",
+            "postman-token": "634b672b-d1c9-d3b2-b35a-eb3080f35ab5"
+        }
+    }
+    $.ajax(settings).done(function (response) {
+        result = response.GetUUIDResult;
+        uuid = response.GetUUIDResult;
+        var post_data = gatherAllInfo();
+        var imgURL = $('#course-preview-img').attr('src');
+        var timestamp = new Date().getUTCMilliseconds();
+        var dt = new Date().toLocaleString(); 
+        pin = "Workshop Course - " + dt + ":" + timestamp;
+        var data = {
+                "ProcInstName": pin,
+                "ProcessID": pid,
+                "WorkObjID": uuid,
+                "blnStartImmediately": true,
+                "Initiator": "測試人員PJW",//觸發流程之人(欲開課之老師)
+                "Attributes": []
+        };
+        alert(JSON.stringify(data));
+        var preS = "/pd:AP/pd:formFields/pd:tbxCourse";
+        var boxName = ["Name","Brief","Level","OpenDate","StuNum","Len","ImgUrl","ItemNeed","Background","StuOutput","UnitPlan","Detail"];
+        var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],"很多單元",postData['INTRODUCTION']];
+        alert(postData['TITLE']); 
+        // $('.course').each(function(){
+        //     inputValue.push(this.value);
+        // })
+        for(var i=0; i < boxName.length; i++){
+            data.Attributes.push({Name:preS+boxName[i],Value:inputValue[i]});
+        }
+        alert(JSON.stringify(data));
+        settings123 = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/CreateProcInst",
+            "method": "POST",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
+                "content-type": "application/json",
+                "cache-control": "no-cache",
+                "postman-token": "7aaaf79e-a8c7-8d2d-d387-20752abdd113"
+            },        
+            "processData": false,
+            "data":JSON.stringify(data),
+            success: function(msg){
+                alert(msg);
+            },
+            error:function(xhr, ajaxOptions, thrownError){ 
+                alert(xhr.status); 
+                alert(thrownError); 
+            }        
+        }  
+        alert(JSON.stringify(settings123));
+        $.ajax(settings123).done();             
+
+        
+SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(){
+            alert('課程新增成功,待官方人員核准就會進入募資階段!');
+            window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
+        });
+
+        });
+        return result;
+}
+//End觸發AgilePoint審核流程
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 </script>

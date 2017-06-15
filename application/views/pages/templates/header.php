@@ -37,6 +37,7 @@
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script> -->
   
   <!-- Customized CSS or JS -->
+  <!-- <script type="text/javascript" charset="utf8" src="<?php echo base_url();?>asset/js/agilepoint.js"></script> -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>asset/css/waiting.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>asset/css/custom.css">
   

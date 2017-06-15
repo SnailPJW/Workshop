@@ -5,7 +5,7 @@ SimpleMsgHandler.handleRequest = function(run_anim, promise, success_callback){
     if(run_anim){
         AnimationUtil.startWaitingAnimation();//loading 時等待的燈箱感覺
     }
-    promise.done(function(resp){                    
+    promise.done(function(resp){                 
         if(resp.status == 'success'){
             success_callback(resp);
         }else{

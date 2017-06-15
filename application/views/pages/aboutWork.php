@@ -77,10 +77,10 @@
 
         <!-- 底部相關連結片段 -->
         <div class="ts center aligned basic segment">
-            <i class="facebook circular large icon"></i>
-            <i class="twitter circular large icon"></i>
-            <i class="google plus circular large icon"></i>
-            <i class="instagram circular large icon"></i>
+            <a href="https://www.facebook.com/%E8%87%BA%E5%8C%97%E7%A7%91%E5%A4%A7%E5%85%89%E5%A4%A7%E5%89%B5%E5%89%B5%E5%AD%B8%E9%99%A2-302519096751949/" target="_blank"><i class="facebook circular large icon"></i></a>
+            <a href="http://rnd.ntut.edu.tw/bin/home.php" target="_blank"><i class="sun circular large icon"></i></a>
+            <a href="http://www.ntut.edu.tw/bin/home.php" target="_blank"><i class="student circular large icon"></i></a>
+            <a href="https://www.slideshare.net/university2025/ss-66534774" target="_blank"><i class="slideshare circular large icon"></i></a>
         </div>
         <!-- / 底部相關連結片段 -->
 

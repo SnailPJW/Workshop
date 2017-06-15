@@ -59,9 +59,9 @@ TutorialIconUtil.generateHtmlForPending = function(tutorial_data){
                         <img class='course-preview-img' src='"+tutorial_data.TUTORIAL_IMAGE_URL+"'/>\
                     </div>\
                     <div class='course-preview-text'>\
-                        <h3 class='course-preview-text-title'>\
+                        <h5 class='course-preview-text-title'>\
                             "+tutorial_data.TITLE+"<br><small>"+tutorial_data.SHORT_INTRO+"</small>\
-                        </h3>\
+                        </h5>\
                         <br>\
                     </div>\
                     <div class='course-preview-fundraise'>\
