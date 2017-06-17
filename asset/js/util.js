@@ -46,6 +46,11 @@ TutorialIconUtil.generateCard = function(wishing_data){
                   </div>\
                   <div class='tertiary extra content'>\
                       <i class='icon thumbs up'></i> "+wishing_data.DESIRE+" 個我也想學\
+                      <div class='fb-like'\
+                          data-share='false'\
+                          data-width='450'\
+                          data-show-faces='true'>\
+                      </div>\
                   </div>\
               </a>";
     return str;
