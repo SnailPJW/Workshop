@@ -108,6 +108,24 @@
         </div>
     </div>
 <script>
+// FB-Login-SKD
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '673084749544580',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+//end- FB-Login-SKD
 $('#btnLogin').click(function(){
     AnimationUtil.startWaitingAnimation();
         $.post('<?php echo base_url();?>index.php/users/login', $('#login_form').serializeArray())
