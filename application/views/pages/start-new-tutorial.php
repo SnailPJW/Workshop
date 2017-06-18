@@ -20,7 +20,7 @@
                 </a>
             </div>  
             <div class="ts padded attached segment">
-            <div class="ts relaxed grid">
+            <div class="ts relaxed stackable grid">
                 <div class="ts six wide column raised info card" style="height: 500px;">
                     <div class="image">
                         <img id="course-preview-img" src="https://tocas-ui.com/assets/img/15d7510.png">
