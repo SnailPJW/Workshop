@@ -170,6 +170,26 @@ class Tutorials extends CI_Controller
         }
         
     }
+
+    public function authorizePendingTutorialA9($tut_id){
+                   
+            $where = array('TUTORIAL_ID'=>$tut_id, 'STATE'=>'pending');
+            if($this->tutorialModel->checkTutorialExists($where)){
+            if($this->tutorialModel->authorizePendingTutorial($tut_id)){
+                JSON_Util::SendSuccessResponse('審核成功!');
+                return;
+            }else{
+                JSON_Util::SendErrorResponse('資料庫錯誤!');
+                return;
+            }
+        }else{
+            JSON_Util::SendErrorResponse('無此課程或者該課程已經不在等待審核的狀態!');
+            return;
+        
+        }
+        
+    }
+
     public function searchForTutorial(){
         $state = $this->input->post('state');
         $keyword = $this->input->post('keyword');
@@ -277,8 +297,9 @@ class Tutorials extends CI_Controller
         ));
 
         //if($this->tutorialModel->createNewTutorial($data, $tutorial_titles, $vid_id, $user)>0){
-        if($this->tutorialModel->createNewTutorial($data, $tutorial_titles,$user)>0){
-            JSON_Util::SendSuccessResponse('新增課程成功，待審核!');
+        $tutorial_id = $this->tutorialModel->createNewTutorial($data, $tutorial_titles,$user);
+        if($tutorial_id>0){
+            JSON_Util::SendSuccessResponse($tutorial_id);
         }else{
             JSON_Util::SendErrorResponse('資料庫錯誤');
         }

@@ -130,7 +130,7 @@
 </div>
 <script>
 //觸發AgilePoint審核流程    
-function callAgilepoint(postData) {
+function callAgilepoint(postData,tutorial_id) {
     var email = '<?php echo $user_data['EMAIL']?>';
     var name =  '<?php echo $user_data['NAME']?>';
     var imgURL = $('#course-preview-img').attr('src');
@@ -149,8 +149,8 @@ function callAgilepoint(postData) {
             "Attributes": []
     };
     var preS = "/pd:AP/pd:formFields/pd:tbxCourse";
-    var boxName = ["TITLE","SHORT_INTRO","TUTORIAL_LEVEL","PREPARE_DAYS","REQ_STUDENT_COUNT","PREDICTED_COURSE_LENGTH","PREDICTED_COURSE_LOCATION","imgURL","NEEDED_ITEMS","REQ_KNOWLEDGE","COURSE_OUTPUT","SESSION","INTRODUCTION","Email","Name"];
-    var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],postData['PREDICTED_COURSE_LOCATION'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],JSON.stringify(postData['TUTORIAL_SESSION_TITLES']),postData['INTRODUCTION'],email,name];
+    var boxName = ["TITLE","SHORT_INTRO","TUTORIAL_LEVEL","PREPARE_DAYS","REQ_STUDENT_COUNT","PREDICTED_COURSE_LENGTH","PREDICTED_COURSE_LOCATION","imgURL","NEEDED_ITEMS","REQ_KNOWLEDGE","COURSE_OUTPUT","SESSION","INTRODUCTION","Email","Name","ID"];
+    var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],postData['PREDICTED_COURSE_LOCATION'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],JSON.stringify(postData['TUTORIAL_SESSION_TITLES']),postData['INTRODUCTION'],email,name,tutorial_id];
     for(var i=0; i < boxName.length; i++){
         data.Attributes.push({Name:preS+boxName[i],Value:inputValue[i]});
     }
@@ -383,9 +383,10 @@ $( "#tabs" ).tabs();
     function submitNewTutorial(){
         var post_data = gatherAllInfo();
         if(post_data === false) return;
-        callAgilepoint(post_data);
-        SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(){
+        
+        SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(response){
             alert('課程新增成功,待官方人員核准就會進入募資階段!');
+            callAgilepoint(post_data,response.data);
             window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
         });
     }
