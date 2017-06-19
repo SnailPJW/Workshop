@@ -129,6 +129,154 @@
     </div>
 </div>
 <script>
+//觸發AgilePoint審核流程    
+function callAgilepoint(postData) {
+    var email = '<?php echo $user_data['EMAIL']?>';
+    var name =  '<?php echo $user_data['NAME']?>';
+    var imgURL = $('#course-preview-img').attr('src');
+    var timestamp = new Date().getUTCMilliseconds();
+    var dt = new Date().toLocaleString(); 
+    var pin = "Workshop Course - " + dt + ":" + timestamp;
+
+    var pid = GetPID();
+    var uuid = GetUUID(); 
+    var data = {
+            "ProcInstName": pin,
+            "ProcessID": pid,
+            "WorkObjID": uuid,
+            "blnStartImmediately": true,
+            "Initiator": name+" - "+email,//觸發流程之人(欲開課之老師)
+            "Attributes": []
+    };
+    var preS = "/pd:AP/pd:formFields/pd:tbxCourse";
+    var boxName = ["TITLE","SHORT_INTRO","TUTORIAL_LEVEL","PREPARE_DAYS","REQ_STUDENT_COUNT","PREDICTED_COURSE_LENGTH","PREDICTED_COURSE_LOCATION","imgURL","NEEDED_ITEMS","REQ_KNOWLEDGE","COURSE_OUTPUT","SESSION","INTRODUCTION","Email","Name"];
+    var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],postData['PREDICTED_COURSE_LOCATION'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],JSON.stringify(postData['TUTORIAL_SESSION_TITLES']),postData['INTRODUCTION'],email,name];
+    for(var i=0; i < boxName.length; i++){
+        data.Attributes.push({Name:preS+boxName[i],Value:inputValue[i]});
+    }
+    var settings = {
+        "async": false,
+        "crossDomain": true,
+        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/CreateProcInst",
+        "method": "POST",
+        "headers": {
+            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
+            "content-type": "application/json",
+            "cache-control": "no-cache",
+            "postman-token": "7aaaf79e-a8c7-8d2d-d387-20752abdd113"
+        },        
+        "processData": false,
+        "data":JSON.stringify(data)
+    }     
+    $.ajax(settings).done();
+    //alert(resultProcInstID+',/n'+resultWorkObjectID);
+    // var data = JSON.stringify({
+    //   "ProcInstName": pin,
+    //   "Initiator": "測試人員Peggy",
+    //   "ProcessID": pid,
+    //   "WorkObjID": "80C7005056AB4B79117754B05F0E283F",
+    //   "blnStartImmediately": "true",
+    //   "Attributes": [
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseTITLE",
+    //       "Value": "test2吧!!!YOOOOOO"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseSHORT_INTRO",
+    //       "Value": "這是簡短描述!"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseTUTORIAL_LEVEL",
+    //       "Value": "專業!!!0524"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCoursePREPARE_DAYS",
+    //       "Value": "05/25/2017"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseREQ_STUDENT_COUNT",
+    //       "Value": "224"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCoursePREDICTED_COURSE_LENGTH",
+    //       "Value": "54"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCoursePREDICTED_COURSE_LOCATION",
+    //       "Value": "lab535"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseimgURL",
+    //       "Value": "http://130.211.173.219/ntutv01"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseNEEDED_ITEMS",
+    //       "Value": "帶一科學習的心!!0524"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseREQ_KNOWLEDGE",
+    //       "Value": "無局限的想像思維吧!!!0524"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseCOURSE_OUTPUT",
+    //       "Value": "了解金工製作的基本技術!!!0524"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseSESSION",
+    //       "Value": "單元1: 金工安全與環境介紹"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseINTRODUCTION",
+    //       "Value": "這是課程Detail吧!!!0524"
+    //     },
+    //     {
+    //       "Name": "/pd:AP/pd:formFields/pd:tbxCourseEmail",
+    //       "Value": "alanwei1202@gmail.com"
+    //     }
+    //   ]
+    // });
+}
+
+function GetPID() {
+    var result;
+    var procName = "WORKSHOP_FLOW";//填上流程名稱
+    var settings = {
+        "async": false,
+        "crossDomain": true,
+        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/GetReleasedPID/"+procName,
+        "method": "GET",
+        "headers": {
+            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHVzZXIwNjpwQHNzdzByZA==",
+            "cache-control": "no-cache",
+            "postman-token": "91280bb5-bf39-0395-5f92-7fbc742a9efd"
+        }
+    }
+    $.ajax(settings).done(function (response) {
+        result = response.GetReleasedPIDResult;
+    });
+    return result;
+}
+
+function GetUUID() {
+    var result;
+    var settings = {
+      "async": false,
+      "crossDomain": true,
+      "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/GetUUID",
+      "method": "GET",
+      "headers": {
+        "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
+        "cache-control": "no-cache",
+        "postman-token": "09753934-d309-5ea0-0c58-023ddea3d3fa"
+      }
+    }
+    $.ajax(settings).done(function (response) {
+        result = response.GetUUIDResult;
+    });
+    return result;
+}
+//End觸發AgilePoint審核流程
+
 //tocas dropdown list needs
 ts('.ts.dropdown:not(.basic)').dropdown();
 $( "#tabs" ).tabs();
@@ -187,7 +335,7 @@ $( "#tabs" ).tabs();
         // output['INTRODUCTION'] = $('#summernote').summernote('code');        
         output['INTRODUCTION'] = JSON.stringify(simplemde.value());        
         output['IMAGE_ID'] = tutorialImgRow['IMAGE_ID'];
-
+        uuid = GetUUID();
         return output;
     }
     function allInfoFilled(){
@@ -235,7 +383,7 @@ $( "#tabs" ).tabs();
     function submitNewTutorial(){
         var post_data = gatherAllInfo();
         if(post_data === false) return;
-        // callAgilepoint(post_data);
+        callAgilepoint(post_data);
         SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(){
             alert('課程新增成功,待官方人員核准就會進入募資階段!');
             window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
@@ -317,174 +465,4 @@ $( "#tabs" ).tabs();
         });
         
     });
-
-//觸發AgilePoint審核流程    
-function callAgilepoint(postData) {
-
-    var imgURL = $('#course-preview-img').attr('src');
-    var timestamp = new Date().getUTCMilliseconds();
-    var dt = new Date().toLocaleString(); 
-    var pin = "Workshop Course - " + dt + ":" + timestamp;
-    var pid = GetPID();//postData);
-    var uuid = GetUUID(); 
-
-    var data = {
-            "ProcInstName": pin,
-            "ProcessID": pid,
-            "WorkObjID": uuid,
-            "blnStartImmediately": true,
-            "Initiator": "測試人員PJW",//觸發流程之人(欲開課之老師)
-            "Attributes": []
-    };
-    // alert(JSON.stringify(data));
-    var preS = "/pd:AP/pd:formFields/pd:tbxCourse";
-    var boxName = ["Name","Brief","Level","OpenDate","StuNum","Len","ImgUrl","ItemNeed","Background","StuOutput","UnitPlan","Detail"];
-    var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],"很多單元",postData['INTRODUCTION']];
-    // alert(inputValue); 
-    // $('.course').each(function(){
-    //     inputValue.push(this.value);
-    // })
-    for(var i=0; i < boxName.length; i++){
-        data.Attributes.push({Name:preS+boxName[i],Value:inputValue[i]});
-    }
-    // alert(JSON.stringify(data));
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/CreateProcInst",
-        "method": "POST",
-        "headers": {
-            "Access-Control-Allow-Origin": "*",
-            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
-            "content-type": "application/json",
-            "cache-control": "no-cache",
-            "postman-token": "7aaaf79e-a8c7-8d2d-d387-20752abdd113"
-        },        
-        "processData": false,
-        "data":JSON.stringify(data),
-        success: function(msg){
-            alert(msg);
-        },
-        error:function(xhr, ajaxOptions, thrownError){ 
-            alert(xhr.status); 
-            alert(thrownError); 
-        }        
-    }     
-    $.when(pid, uuid).done(function() {
-      $.ajax(settings).done();
-    });
-                
-}
-
-function GetPID() {//postData){
-    var result;
-    var procName = "WorkshopReview";//填上流程名稱
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/GetReleasedPID/"+procName,
-        "method": "GET",
-        "headers": {
-            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHVzZXIwNjpwQHNzdzByZA==",
-            "cache-control": "no-cache",
-            "postman-token": "91280bb5-bf39-0395-5f92-7fbc742a9efd"
-        }
-    }
-    
-    $.ajax(settings).done(function (response) {
-        result = response.GetReleasedPIDResult;
-        // var pid = response.GetReleasedPIDResult;
-        // alert(result);
-        // GetUUID(pid,postData);
-        // sleep(2000);
-    });
-    return result;
-}
-
-function GetUUID() {//pid,postData){
-    
-    var result;
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/GetUUID",
-        "method": "GET",
-        "headers": {
-            "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
-            "cache-control": "no-cache",
-            "postman-token": "634b672b-d1c9-d3b2-b35a-eb3080f35ab5"
-        }
-    }
-    $.ajax(settings).done(function (response) {
-        // sleep(5000);
-        result = response.GetUUIDResult;
-        // var uuid = response.GetUUIDResult;
-        // alert(result);
-        // var imgURL = $('#course-preview-img').attr('src');
-        // alert(imgURL);
-        // var timestamp = new Date().getUTCMilliseconds();
-        // alert(timestamp);
-        // var dt = new Date().toLocaleString(); 
-        // alert(dt);
-        // var pin = "Workshop Course - " + dt + ":" + timestamp;
-        // var data = {
-        //         "ProcInstName": pin,
-        //         "ProcessID": pid,
-        //         "WorkObjID": uuid,
-        //         "blnStartImmediately": true,
-        //         "Initiator": "測試人員PJW",//觸發流程之人(欲開課之老師)
-        //         "Attributes": []
-        // };
-        // alert(JSON.stringify(data));
-        // var preS = "/pd:AP/pd:formFields/pd:tbxCourse";
-        // var boxName = ["Name","Brief","Level","OpenDate","StuNum","Len","ImgUrl","ItemNeed","Background","StuOutput","UnitPlan","Detail"];
-        // var inputValue = [postData['TITLE'],postData['SHORT_INTRO'],postData['TUTORIAL_LEVEL'],postData['PREPARE_DAYS'],postData['REQ_STUDENT_COUNT'],postData['PREDICTED_COURSE_LENGTH'],imgURL,postData['NEEDED_ITEMS'],postData['REQ_KNOWLEDGE'],postData['COURSE_OUTPUT'],"很多單元",postData['INTRODUCTION']];
-        
-        // alert(inputValue.toString());
-        // for(var i=0; i < boxName.length; i++){
-        //     data.Attributes.push({Name:preS+boxName[i],Value:inputValue[i]});
-        // }
-        
-        // var settings123 = {
-        //     "async": true,
-        //     "crossDomain": true,
-        //     "url": "https://agilepoint.ntut.edu.tw:13490/AgilePointServer/Workflow/CreateProcInst",
-        //     "method": "POST",
-        //     "headers": {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "authorization": "Basic V0lOLVRKSFVQVUdDQVVQXHNuYWlscGp3MTIwMjpwQHNzdzByZA==",
-        //         "content-type": "application/json",
-        //         "cache-control": "no-cache",
-        //         "postman-token": "7aaaf79e-a8c7-8d2d-d387-20752abdd113"
-        //     },        
-        //     "processData": false,
-        //     "data":JSON.stringify(data),
-        //     success: function(msg){
-        //         alert(msg);
-        //     },
-        //     error:function(xhr, ajaxOptions, thrownError){ 
-        //         alert(xhr.status); 
-        //         alert(thrownError); 
-        //     }        
-        // }  
-        // alert(JSON.stringify(settings123));
-        // $.ajax(settings123).done(alert('!'));             
-        // sleep(2000);
-        
-        
-
-        });
-        return result;
-}
-//End觸發AgilePoint審核流程
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
 </script>
