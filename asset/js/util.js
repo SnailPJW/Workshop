@@ -76,23 +76,47 @@ TutorialIconUtil.generateHtmlForPending = function(tutorial_data){
     return str;
 }
 TutorialIconUtil.generateHtmlForRaiseFund = function(tutorial_data){
-    var str =   "<a href='"+tutorial_data.TUTORIAL_URL+"'><div class='course-preview-panel col-sm-3'>\
-                    <div style='display:inline-block;' class='course-preview-teacher-img-container'>\
-                        <img class='course-preview-teacher-img' src='"+tutorial_data.TEACHER_PICTURE_URL+"'/>\
+    var str =   "<a class='ts card' href='"+tutorial_data.TUTORIAL_URL+"'>\
+                <div class='image'>\
+                    <img src='"+tutorial_data.TUTORIAL_IMAGE_URL+"'/>\
+                </div>\
+                <div class='content'>\
+                    <div class='header'>\
+                        "+tutorial_data.TITLE+"\
                     </div>\
-                    <div class='course-preview-img-container'>\
-                        <img class='course-preview-img' src='"+tutorial_data.TUTORIAL_IMAGE_URL+"'/>\
+                    <div class='description'>\
+                        "+tutorial_data.SHORT_INTRO+"\
                     </div>\
-                    <div class='course-preview-text'>\
-                        <h3 class='course-preview-text-title'>\
-                            "+tutorial_data.TITLE+"<br><small>"+tutorial_data.SHORT_INTRO+"</small>\
-                        </h3>\
-                        <br>\
+                </div>\
+                <div class='extra content'>\
+                    <div class='right floated author'>\
+                        <img class='ts circular avatar image' src='"+tutorial_data.TEACHER_PICTURE_URL+"'>\
                     </div>\
-                    <div class='course-preview-fundraise'>\
-                        <h4>預購價$"+tutorial_data.DISCOUNT_REQ_PRICE+", 已募得"+tutorial_data.STUDENT_COUNT+"/"+tutorial_data.REQ_STUDENT_COUNT+"人</h4>\
-                    </div><div>還剩 "+tutorial_data.RAISE_FUND_DAYS_REMAINING+"天</div>\
-                </div></a>";
+                </div>\
+                <div class='secondary extra content'>\
+                    <div class='ts small active progress'>\
+                        <div class='bar' style='width: 25%'></div>\
+                    </div>\
+                    <div class='ts three column grid'>\
+                        <div class='column'>\
+                            <strong>"+tutorial_data.STUDENT_COUNT+"人</strong>\
+                            <br>\
+                            已選課\
+                        </div>\
+                        <div class='column'>\
+                            <strong>"+tutorial_data.REQ_STUDENT_COUNT+"</strong>\
+                            <br>\
+                            人數上限\
+                        </div>\
+                        <div class='column'>\
+                            <strong>"+tutorial_data.RAISE_FUND_DAYS_REMAINING+"</strong>\
+                            <br>\
+                            天剩餘\
+                        </div>\
+                    </div>\
+                </div>\
+            </a>\
+                ";
     return str;
 }
 TutorialIconUtil.generateHtmlForPrepare = function(tutorial_data){
