@@ -385,7 +385,11 @@ $( "#tabs" ).tabs();
         if(post_data === false) return;
         
         SimpleMsgHandler.handleRequest(true, TutorialController.submitNewTutorial(post_data), function(response){
-            alert('課程新增成功,待官方人員核准就會進入募資階段!');
+            swal(
+              '申請開課資訊已送出',
+              '請等待 1 ~ 3 天審核流程!',
+              'success'
+            );
             callAgilepoint(post_data,response.data);
             window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
         });
