@@ -389,9 +389,10 @@ $( "#tabs" ).tabs();
               '申請開課資訊已送出',
               '請等待 1 ~ 3 天審核流程!',
               'success'
-            );
-            callAgilepoint(post_data,response.data);
-            window.location.href = "<?php echo base_url().'index.php/pages/view/search-tutorial';?>";
+            ).then(function () {
+                callAgilepoint(post_data,response.data);
+                window.location.href = "<?php echo base_url().'index.php/pages/view/raise-fund-for-tutorial';?>";
+            });
         });
     }
     var tutorialImgRow = null;

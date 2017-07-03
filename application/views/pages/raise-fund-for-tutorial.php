@@ -6,7 +6,7 @@
                 <i class="inverted circular search link icon" id='searchBtn'></i>
             </div>
             <br><br>
-            <div class="ts three waterfall cards" id="icon_section">
+            <div class="ts three cards" id="icon_section">
             </div>
             <br><br>
             <button class="ts fluid primary basic button" onclick="loadMore();">載入更多</button>
