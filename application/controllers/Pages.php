@@ -57,6 +57,8 @@ class Pages extends CI_Controller
                     $this->redirectToLogin();
                     return;
                 }
+                $user = $context['user_data']['ACCOUNT'];
+                $context['user_data']['wishLikeList'] = $this->tutorialModel->checkLikeWishing($user);
                 break;
             case 'customer-service':
                 if(!array_key_exists('user_data', $context)){
@@ -150,7 +152,7 @@ class Pages extends CI_Controller
     
     public function tutorials($tutorial_id){
         $context = $this->getContextCommon();
-        $context['title'] = '觀看課程內容';
+        $context['title'] = '課程內容';
         $user_data = false;
         if(array_key_exists('user_data', $context)) $user_data = $context['user_data'];
         $tut_data = $this->tutorialModel->getTutorialDataForFullRender($tutorial_id);

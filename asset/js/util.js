@@ -28,51 +28,58 @@ TutorialIconUtil.generateHtml = function(tutorial_data){
     }
 }
 TutorialIconUtil.generateCard = function(wishing_data){
-    var str = "<a class='ts card' href=''>\
-                  <div class='content'>\
-                      <div class='header'>我想學 "+wishing_data.TITLE+"</div>\
-                      <div class='meta'>\
-                          <div>"+wishing_data.CREATE_TIME+"</div>\
-                      </div>\
-                      <div class='description'>"+wishing_data.SHORT_INTRO+"</div>\
-                  </div>\
+    var str = "<a class='ts positive card'>\
                   <div class='extra content'>\
-                      <div class='right floated author'>\
+                  <div class='actions'>\
+                    <div class='ts icon buttons'>\
+                        <button class='ts button btnDesire' id='"+wishing_data.WISH_ID+"'  name='"+wishing_data.NAME+"'>\
+                            <i class='thumbs up icon'></i>\
+                            <div class='ts floating circular basic primary label'>"+wishing_data.DESIRE+"</div>\
+                        </button>\
+                    </div>\
+                  </div>\
+                      <div class='floated author'>\
                           <img class='ts circular avatar image' src='"+wishing_data.STUDENT_PICTURE_URL+"'>"+wishing_data.NAME+"\
                       </div>\
+                      <div class='meta'>\
+                        <div>"+wishing_data.CREATE_TIME+"</div>\
+                    　</div>\
                   </div>\
+                  <div class='content'>\
+                      <div class='header'>我想學 "+wishing_data.TITLE+"</div>\
+                      <div class='description'>"+wishing_data.SHORT_INTRO+"</div>\
+                  </div>\
+                  <div class='symbol'>\
+                        <i class='volume control phone icon'></i>\
+                    </div>\
                   <div class='secondary extra content'>\
-                      <i class='icon unhide'></i> "+wishing_data.CATEGORY+"\
+                      <i class='icon student'></i> 推薦教師："+wishing_data.TEACHER+"\
                   </div>\
                   <div class='tertiary extra content'>\
-                      <i class='icon thumbs up'></i> "+wishing_data.DESIRE+" 個我也想學\
-                      <div class='fb-like'\
-                          data-share='false'\
-                          data-width='450'\
-                          data-show-faces='true'>\
-                      </div>\
+                      <i class='icon tags'></i> "+wishing_data.CATEGORY+"\
                   </div>\
               </a>";
     return str;
 }
 TutorialIconUtil.generateHtmlForPending = function(tutorial_data){
-    var str =   "<a href='"+tutorial_data.TUTORIAL_URL+"'><div class='course-preview-panel col-sm-3'>\
-                    <div style='display:inline-block;' class='course-preview-teacher-img-container'>\
-                        <img class='course-preview-teacher-img' src='"+tutorial_data.TEACHER_PICTURE_URL+"'/>\
+    var str =   "<a class='ts card' href='"+tutorial_data.TUTORIAL_URL+"'>\
+                <div class='image'>\
+                    <img src='"+tutorial_data.TUTORIAL_IMAGE_URL+"'/>\
+                </div>\
+                <div class='content'>\
+                    <div class='header'>\
+                        "+tutorial_data.TITLE+"\
                     </div>\
-                    <div class='course-preview-img-container'>\
-                        <img class='course-preview-img' src='"+tutorial_data.TUTORIAL_IMAGE_URL+"'/>\
+                    <div class='description'>\
+                        "+tutorial_data.SHORT_INTRO+"\
                     </div>\
-                    <div class='course-preview-text'>\
-                        <h5 class='course-preview-text-title'>\
-                            "+tutorial_data.TITLE+"<br><small>"+tutorial_data.SHORT_INTRO+"</small>\
-                        </h5>\
-                        <br>\
+                </div>\
+                <div class='extra content'>\
+                    <div class='right floated author'>\
+                        <img class='ts circular avatar image' src='"+tutorial_data.TEACHER_PICTURE_URL+"'>\
                     </div>\
-                    <div class='course-preview-fundraise'>\
-                        <h4>選課人數已達到 "+tutorial_data.STUDENT_COUNT+" / "+tutorial_data.REQ_STUDENT_COUNT+" 人</h4>\
-                    </div>\
-                </div></a>";
+                </div>\
+            </a>";
     return str;
 }
 TutorialIconUtil.generateHtmlForRaiseFund = function(tutorial_data){
@@ -91,7 +98,7 @@ TutorialIconUtil.generateHtmlForRaiseFund = function(tutorial_data){
                 <div class='extra content'>\
                     <div class='right floated author'>\
                         <img class='ts circular avatar image' src='"+tutorial_data.TEACHER_PICTURE_URL+"'>\
-                    </div>\
+                    "+tutorial_data.TEACHER_ACCOUNT+"</div>\
                 </div>\
                 <div class='secondary extra content'>\
                     <div class='ts small active progress'>\
@@ -115,8 +122,10 @@ TutorialIconUtil.generateHtmlForRaiseFund = function(tutorial_data){
                         </div>\
                     </div>\
                 </div>\
-            </a>\
-                ";
+                <div class='tertiary extra content'>\
+                    <i class='icon tags'></i> "+tutorial_data.CATEGORY+"\
+                </div>\
+            </a>";
     return str;
 }
 TutorialIconUtil.generateHtmlForPrepare = function(tutorial_data){

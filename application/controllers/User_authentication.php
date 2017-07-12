@@ -63,6 +63,6 @@ class User_Authentication extends CI_Controller
 
         // Redirect to login page
         // redirect('/user_authentication');
-        redirect('/index.php/user_authentication/index');
+        redirect('/index.php/pages/view/aboutWork');
     }
 }

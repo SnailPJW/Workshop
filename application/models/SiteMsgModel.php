@@ -42,6 +42,7 @@ class SiteMsgModel extends CI_Model
         $user_row = $this->userModel->getUserRow($user);
         return $this->sendMsgToUser($user_row, $title, $msg, $send_email);
     }
+    //寄發email
     public function sendMsgToUser($user_row, $title, $msg, $send_email = false){
         $data = array(
             'ACCOUNT'=>$user_row['ACCOUNT'],

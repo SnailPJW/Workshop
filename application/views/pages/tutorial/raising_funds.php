@@ -29,7 +29,7 @@
                 <!-- / 區段分隔線 -->
                 <div class="ts inverted segment">
                     <div class="ts inverted primary statistic">
-                        <div class="value"><?php echo $tutorial_data['STUDENT_COUNT'];?></div>
+                        <div class="value" id="numEnrolled"><?php echo $tutorial_data['STUDENT_COUNT'];?></div>
                         <div class="label">已選課人數</div>
                     </div>
                     <div class="ts inverted warning statistic">
@@ -192,8 +192,15 @@
         SimpleMsgHandler.handleRequest(true, TutorialController.buyTutorial(tut_id), function(resp){
             alert(resp.data);
             //remove the button
-            $('#buy_button').attr('disabled', true);
-            $('#buy_button').text('已經選課');
+            // var result = resp.date.toString();
+            // if(result =='選課成功'){
+                $('#buy_button').attr('disabled', true);
+                $('#buy_button').text('已經選課');
+
+                var tut_num = <?php echo $tutorial_data['STUDENT_COUNT'];?>;
+                ++tut_num;
+                $('#numEnrolled').html(tut_num);
+            // }
         });
     }
 </script>

@@ -204,6 +204,7 @@ class Tutorials extends CI_Controller
             JSON_Util::SendErrorResponse('沒有更多的課程!');
         }
     }
+    
     public function submitNewTutorial(){
         $user = $this->session->userdata('ACCOUNT');
         if(!$user){
@@ -215,6 +216,15 @@ class Tutorials extends CI_Controller
         $img_id = $v;
         //課程程度判斷
         $v = $this->getInfo('TUTORIAL_LEVEL', '課程程度不可為空!','validateNotEmpty');
+        if($v===false) return;
+        //課程類別判斷
+        $v = $this->getInfo('CATEGORY', '課程類別不可為空!','validateNotEmpty');
+        if($v===false) return;
+        //進行方式判斷
+        $v = $this->getInfo('PROGRAM', '進行方式不可為空!','validateNotEmpty');
+        if($v===false) return;
+        //教學方式判斷
+        $v = $this->getInfo('METHOD', '教學方式不可為空!','validateNotEmpty');
         if($v===false) return;
         //上課位置
         $v = $this->getInfo('PREDICTED_COURSE_LOCATION', '課程地點不可為空!','validateNotEmpty');
@@ -291,7 +301,7 @@ class Tutorials extends CI_Controller
         //PREPARE_DAYS 改成開課日期
         $data = $this->getPostFieldsWithKeys(array(
             'IMAGE_ID','INTRODUCTION','NEEDED_ITEMS','PREDICTED_COURSE_LENGTH','PREPARE_DAYS','REQ_KNOWLEDGE','COURSE_OUTPUT',
-            'REQ_STUDENT_COUNT','SHORT_INTRO','TITLE','TUTORIAL_LEVEL','PREDICTED_COURSE_LOCATION'
+            'REQ_STUDENT_COUNT','SHORT_INTRO','TITLE','TUTORIAL_LEVEL','CATEGORY','PROGRAM','METHOD','PREDICTED_COURSE_LOCATION'
         ));
 
         //if($this->tutorialModel->createNewTutorial($data, $tutorial_titles, $vid_id, $user)>0){
@@ -420,4 +430,27 @@ class Tutorials extends CI_Controller
             JSON_Util::SendErrorResponse('沒有更多的願望!');
         }
     }
+
+    public function likeWishing(){
+        $wish_id = $this->input->post('wish_id');
+        $account = $this->input->post('account');
+        
+        $rows = $this->tutorialModel->likeWishing($wish_id, $account);
+        if($rows!==false){
+            JSON_Util::SendSuccessResponse('ok');
+        }else{
+            JSON_Util::SendErrorResponse('update error');
+        }
+    }
+    
+    // public function checkLikeWishing(){
+    //     $account = $this->input->post('account');
+        
+    //     $rows = $this->tutorialModel->checkLikeWishing($account);
+    //     if($rows!==false){
+    //         JSON_Util::SendSuccessResponse('ok');
+    //     }else{
+    //         JSON_Util::SendErrorResponse('error');
+    //     }
+    // }
 }

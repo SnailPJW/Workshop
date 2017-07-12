@@ -1,140 +1,47 @@
- <!-- 左側邊欄 -->
-    <div class="ts left vertical fluid inverted visible menu sidebar">
-        
-        <!-- 個人資料項目 -->
-        <div class="center aligned item">
-            <img class="ts tiny circular image" id="user_pic" src="<?php echo $user_data['PICTURE_URL']; ?>" style="background-color: white;">
-            <br>
-            <br>
-            <div><?php echo $user_data['NAME'];?></div>
-        </div>
-        <!-- / 個人資料項目 -->
-
-        <!-- 使用者 -->
-        <div class="item">
-            <i class="user icon"></i>
-            帳戶
-            <div class="menu">
-                <a class="item"><?php echo $user_data['ACCOUNT'];?></a>
+ <!-- 主要容器 -->
+    <div class="ts narrow container">
+        <div class="ts relaxed grid">
+            <!-- 標題欄位 -->
+            <div class="ts fluid dashed slate">
+                <i class="battery high icon"></i>
+                <i class="lightning symbol icon"></i>
+                <span class="header">學習ＰＯＷＥＲ</span>
+                <span class="description">從這裡快速檢視您的學習能量。</span>
+                <div class="action">
+                    <button class="ts primary pulsing button" id='pulsingBtn'>貝果開門</button>
+                </div>
             </div>
-        </div>
-        <!-- / 使用者 -->
-        <!-- 信箱 -->
-        <div class="item">
-            <i class="mail icon"></i>
-            信箱
-            <div class="menu">
-                <a class="item"><?php echo $user_data['EMAIL'],"<small>"; if($user_data['EMAIL_CONFIRMED']) echo ' (已驗證)';else echo ' (未驗證)';echo "</small>" ?></a>
+            <!-- / 標題欄位 -->
             </div>
-        </div>
-        <!-- / 信箱 -->
-        <!-- 網站管理 -->
-        <div class="item">
-            <i class="image icon"></i>
-            照片
-            <div class="menu">
-                <a class="item">上傳
-                        <div class="wrapper">
-                          <div class="file-upload">
-                            <i class="tiny cloud upload icon">
-                            <input type="file" id="picture_file_upload" accept="image/*">
-                            </i>
-                          </div>
-                        </div>
-                </a>
+            <!-- / 大略卡片欄位 -->
+            <!-- 右側雜項欄位 -->
+            <div class="floated sixteen wide column">
+                <!-- 系統佇列 -->
+                <div class="ts top attached info segment">
+                    <div class="ts large header">簡短自我介紹(最多50字)</div>
+                </div>
+                <div class="ts bottom attached segment">
+                    <div class="ts underlined fluid circular resizable big positive input">
+                        <input type='text' id="short_intro" value="<?php echo $user_data['SHORT_INTRO'];?>"/>
+                        <button class="ts primary basic button" onclick="updateShortIntro();">更新</button>
+                    </div>
+                </div>
+                <!-- / 系統佇列 -->
             </div>
-        </div>
-        <!-- / 網站管理 -->
+            <div class="floated sixteen wide column">
+                <div class="ts top attached info segment">
+                    <div class="ts large header">已購買的課程</div>
+                </div>
+                <div class="ts bottom attached three cards" id="bought_tutorials_section"></div>
+            </div>
+            <div class="floated sixteen wide column">
+                <div class="ts top attached info segment">
+                    <div class="ts large header">您開放的課程</div>
+                </div>
+                <div class="ts bottom attached three cards" id="opened_tutorials_section"></div>
+            </div>
     </div>
-    <!-- / 左側邊欄 -->
-
-        <!-- 主要容器 -->
-        <div class="ts narrow container">
-            <div class="ts relaxed grid">
-                <!-- 標題欄位 -->
-                <div class="right floated fifteen wide column">
-                    <h3 class="ts header">
-                        學習狀態
-                        <div class="sub header">從這裡快速檢視您的學習狀態。</div>
-                    </h3>
-                </div>
-                <!-- / 標題欄位 -->
-
-                <!-- 大略卡片欄位 -->
-                <div class="right floated fifteen wide column">
-                    <div class="ts two cards">
-                        <!-- 本月拜訪次數 -->
-                        <div class="ts card">
-                            <div class="content">
-                                <!-- 統計數據 -->
-                                <div class="ts left aligned statistic">
-                                    <div class="value">
-                                        189
-                                        <div class="increment">32</div>
-                                    </div>
-                                    <div class="label">本月拜訪次數</div>
-                                </div>
-                                <!-- / 統計數據 -->
-                            </div>
-                            <div class="symbol">
-                                <i class="eye icon"></i>
-                            </div>
-                        </div>
-                        <!-- / 本月拜訪次數 -->
-                        <!-- 平均在線分鐘數 -->
-                        <div class="ts card">
-                            <div class="content">
-                                <!-- 統計數據 -->
-                                <div class="ts left aligned statistic">
-                                    <div class="value">
-                                        3
-                                        <div class="decrement">14</div>
-                                    </div>
-                                    <div class="label">平均在線分鐘數</div>
-                                </div>
-                                <!-- / 統計數據 -->
-                            </div>
-                            <div class="symbol">
-                                <i class="time icon"></i>
-                            </div>
-                        </div>
-                        <!-- / 平均在線分鐘數 -->
-                    </div>
-                    <!-- 進度列 -->
-                    <div class="ts small indeterminate progress">
-                        <div class="bar" style="width: 30%"></div>
-                    </div>
-                    <!-- / 進度列 -->
-                </div>
-                <!-- / 大略卡片欄位 -->
-                <!-- 右側雜項欄位 -->
-                <div class="right floated fifteen wide column">
-                    <!-- 系統佇列 -->
-                    <div class="ts top attached info segment">
-                        <div class="ts large header">簡短自我介紹(最多50字)</div>
-                    </div>
-                    <div class="ts bottom attached segment">
-                        <div class="ts underlined fluid circular resizable big positive input">
-                            <input type='text' id="short_intro" value="<?php echo $user_data['SHORT_INTRO'];?>"/>
-                            <button class="ts primary basic button" onclick="updateShortIntro();">更新</button>
-                        </div>
-                    </div>
-                    <!-- / 系統佇列 -->
-                </div>
-                <div class="right floated fifteen wide column">
-                    <div class="ts top attached info segment">
-                        <div class="ts large header">已購買的課程</div>
-                    </div>
-                    <div class="ts bottom attached segment" id="bought_tutorials_section"></div>
-                </div>
-                <div class="right floated fifteen wide column">
-                    <div class="ts top attached info segment">
-                        <div class="ts large header">您開放的課程</div>
-                    </div>
-                    <div class="ts bottom attached segment" id="opened_tutorials_section"></div>
-                </div>
-        </div>
-        <!-- / 主要容器 -->
+    <!-- / 主要容器 -->
 </div>
 <script>
     $(function(){
@@ -213,4 +120,8 @@
         renderBoughtTutorials();
         renderOpenedTutorials();
     })
+    ts('.left.sidebar').sidebar({
+        dimPage: true,
+        scrollLock: true
+    }).sidebar('attach events', '#pulsingBtn','toggle');
 </script>

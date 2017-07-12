@@ -10,7 +10,7 @@ class Users extends CI_Controller
     {
         $userid = $this->session->userdata('ACCOUNT');
         $this->session->sess_destroy();
-        header('Location: '.base_url().'index.php/pages/view/search-tutorial');
+        header('Location: '.base_url().'index.php/pages/view/aboutWork');
     }
     public function resetWithHash()
     {
@@ -160,9 +160,8 @@ class Users extends CI_Controller
         JSON_Util::SendSuccessResponse($url);
         
     }
-    public function register()
-    {
-	$this->load->helper('hashsalt');
+    public function register(){
+	    $this->load->helper('hashsalt');
         $account = $this->input->post('ACCOUNT');
         $realname = $this->input->post('NAME');
         $password = $this->input->post('PASSWORD');

@@ -79,16 +79,24 @@
         <div class="ts center aligned basic segment">
             <a href="https://www.facebook.com/%E8%87%BA%E5%8C%97%E7%A7%91%E5%A4%A7%E5%85%89%E5%A4%A7%E5%89%B5%E5%89%B5%E5%AD%B8%E9%99%A2-302519096751949/" target="_blank"><i class="facebook circular large icon"></i></a>
             <a href="http://rnd.ntut.edu.tw/bin/home.php" target="_blank"><i class="sun circular large icon"></i></a>
+            <a href="https://workshopntut.wordpress.com" target="_blank"><i class="wordpress circular large icon"></i></a>
             <a href="http://www.ntut.edu.tw/bin/home.php" target="_blank"><i class="student circular large icon"></i></a>
             <a href="https://www.slideshare.net/university2025/ss-66534774" target="_blank"><i class="slideshare circular large icon"></i></a>
         </div>
         <!-- / 底部相關連結片段 -->
 
         <!-- 額外附註 -->
-        <div class="ts center aligned basic small message">
-            <p>網站使用的圖檔聲明。</p>
-            <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-            <div>Icons made by <a href="http://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        <div class="ts basic small message">
+            <ul>
+                <li>
+                    網站使用的圖檔聲明。
+                    <ul>
+                        <li><div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div></li>
+                        <li><div>Icons made by <a href="http://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div></li>
+                    </ul>
+                </li>
+            </ul><hr/>
+            <p>套用 <a href="https://yami.io/">Yami Odymel</a> 所設計的<a href="https://tocas-ui.com/">Tocas UI</a>。
         </div>
         <!-- / 額外附註 -->
     </div>

@@ -7,7 +7,7 @@
                 <!-- 標題項目 -->
                 <div class="item">
                     <h3 class="ts header">
-                        典範
+                        典範科技大學
                     </h3>
                 </div>
                 <!-- / 標題項目 -->
@@ -31,36 +31,37 @@
         <div class="four wide column">
             
             <!-- 資料夾清單 -->
-            <div class="ts top attached header">
+            <!-- <div class="ts top attached header">
                 計畫類別
-            </div>
+            </div> -->
             <div class="ts bottom attached vertical menu">
                 <a href="#!" class="item">
-                    <i class="inbox icon"></i> 計畫項目
+                    <i class="inbox icon"></i> 典範目標
                 </a>
                 <a href="#!" class="item">
-                    <i class="mail outline icon"></i> 計畫項目
+                    <i class="mail outline icon"></i> 典範成員
                 </a>
                 <a href="#!" class="item">
-                    <i class="file text outline icon"></i> 計畫項目
+                    <i class="file text outline icon"></i> 典範成果
                 </a>
                 <a href="#!" class="item">
-                    <i class="filter icon"></i> 計畫項目
+                    <i class="filter icon"></i> 相關課程
                 </a>
                 <a href="#!" class="item">
-                    <i class="trash outline icon"></i> 計畫項目
+                    <i class="trash outline icon"></i> 留言專區
                 </a>
             </div>
             <!-- / 資料夾清單 -->
 
             <!-- 標籤清單 -->
             <div class="ts top attached header">
-                標籤分類
+                其他
             </div>
             <div class="ts bottom attached selection segmented link list">
-                <a href="#" class="primary item"><i class="circle primary icon"></i>最新</a>
-                <a href="#" class="negative item"><i class="square negative icon"></i>熱們</a>
-                <a href="#" class="positive item"><i class="check positive icon"></i>成效</a>
+                <a href="#" class="primary item"><i class="circle primary icon"></i>Facebook</a>
+                <a href="#" class="negative item"><i class="square negative icon"></i>研發處</a>
+                <a href="#" class="positive item"><i class="check positive icon"></i>光大創創學院</a>
+                <a href="#" class="primary item"><i class="circle primary icon"></i>QR Code</a>
             </div>
             <!-- / 標籤清單 -->
         </div>

@@ -9,11 +9,11 @@ SimpleMsgHandler.handleRequest = function(run_anim, promise, success_callback){
         if(resp.status == 'success'){
             success_callback(resp);
         }else{
-            alert(resp.data);
+            console.log(resp.data);
         }
     })
         .fail(function(resp){
-            alert("伺服器錯誤!js-- = " + JSON.stringify(resp));
+            console.log("伺服器錯誤!js-- = " + JSON.stringify(resp));
         })
         .always(function(){
             if(run_anim)    AnimationUtil.endWaitingAnimation();
@@ -258,6 +258,20 @@ TutorialController.searchForWishing = function(keyword, subtab_idx){
     };
     return GenericController.post('tutorials','searchForWishing', post_data);
 }
+TutorialController.likeWishing = function(wish_id, account){
+    var post_data = {
+        'wish_id':wish_id,
+        'account':account
+    };
+    return GenericController.post('tutorials','likeWishing', post_data);
+}
+// TutorialController.checkLikeWishing = function(wish_id, account){
+//     var post_data = {
+//         'wish_id':wish_id,
+//         'account':account
+//     };
+//     return GenericController.post('tutorials','checkLikeWishing', post_data);
+// }
 TutorialController.authorizePendingTutorial = function(tut_id){
     var post_data = {
         'TUTORIAL_ID':tut_id

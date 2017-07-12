@@ -3,6 +3,7 @@ class TutorialModel extends CI_Model
 {
     public static $TutorialTableName = 'TUTORIAL';
     public static $WishingTableName = 'TUTORIAL_WISHING';
+    public static $WishingSessionTableName = 'WISHING_SESSION';
     public static $TutorialSessionTableName = 'TUTORIAL_SESSION';
     public static $TutorialStudentTableName = 'TUTORIAL_STUDENT';
     public static $TutorialSearchSubtabLimit = 20;//tutorials to load each time the
@@ -447,7 +448,7 @@ class TutorialModel extends CI_Model
         return $row;
     }
     private function selectTutorialIconNeededFields(){
-        $this->db->select('TUTORIAL_ID, TITLE, SHORT_INTRO, STUDENT_COUNT, IMAGE_ID, TEACHER_ACCOUNT, DISCOUNT_REQ_PRICE, REQ_PRICE, FUNDING_START_TIME, PREPARE_DAYS, CREATE_TIME, FUNDING_START_TIME, STATE, REQ_STUDENT_COUNT,FAILED_REASON');
+        $this->db->select('TUTORIAL_ID, TEACHER_ACCOUNT, TITLE, SHORT_INTRO, STUDENT_COUNT, IMAGE_ID, DISCOUNT_REQ_PRICE, REQ_PRICE, FUNDING_START_TIME, PREPARE_DAYS, CREATE_TIME, FUNDING_START_TIME, STATE, REQ_STUDENT_COUNT, FAILED_REASON, CATEGORY');
         
     }
     private function OrLikeMultiple($col_names, $match_str){
@@ -459,7 +460,7 @@ class TutorialModel extends CI_Model
                 $this->db->or_like($col, $match_str);
             }
             ++$i;
-        }
+        }        
     }
     /*
      * returns some meta data of the tutorials, and add some fields for rendering
@@ -471,16 +472,30 @@ class TutorialModel extends CI_Model
         if(strlen($keyword)==0){
             return $this->searchTutorialWithState($state, $offset);
         }
-        $match_col_names = array(
-            'TITLE','TEACHER_ACCOUNT','SHORT_INTRO','COURSE_OUTPUT','NEEDED_ITEMS','REQ_KNOWLEDGE'
-        );
-        //$where = "MATCH (".implode(',', $match_col_names).") AGAINST ('".$keyword."')";
-        $this->selectTutorialIconNeededFields();
-        if($state!==false){
-            $this->db->where('STATE', $state);
-        }
-        $this->OrLikeMultiple($match_col_names, $keyword);
-        $q = $this->db->get(TutorialModel::$TutorialTableName, TutorialModel::$TutorialSearchSubtabLimit, $offset);
+        //  $match_col_names = array(
+        //      'TEACHER_ACCOUNT','TITLE','SHORT_INTRO','COURSE_OUTPUT','NEEDED_ITEMS','REQ_KNOWLEDGE','CATEGORY','STATE'
+        //  );
+        // $this->selectTutorialIconNeededFields();
+        // if($state!==false){
+        //     $this->db->where('STATE', $state);
+        // }
+        
+        // $this->OrLikeMultiple($match_col_names, $keyword);
+        
+        
+        $sql = "SELECT * FROM (SELECT * FROM TUTORIAL WHERE STATE='".$state."') AS T1 WHERE (
+        TEACHER_ACCOUNT LIKE '%".$keyword."%' OR 
+        TITLE LIKE '%".$keyword."%' OR 
+        SHORT_INTRO LIKE '%".$keyword."%' OR 
+        COURSE_OUTPUT LIKE '%".$keyword."%' OR 
+        NEEDED_ITEMS LIKE '%".$keyword."%' OR 
+        REQ_KNOWLEDGE LIKE '%".$keyword."%' OR 
+        CATEGORY LIKE '%".$keyword."%')";         
+
+        //$this->db->select($sql); 
+        //$q = $this->db->get(TutorialModel::$TutorialTableName, TutorialModel::$TutorialSearchSubtabLimit, $offset);
+        $q = $this->db->query($sql);                
+        
         $r = $q->result_array();
         if($r){
             return $this->addTutorialIconAddFields($r);
@@ -566,6 +581,7 @@ class TutorialModel extends CI_Model
         $row = $this->addCoursePresumedDate($row);
         return $row;
     }
+    
     //移除影片相關程式 修改PREPARE_DAYS相關參數
     //public function createNewTutorial($data, $tutorial_session_titles, $intro_vid_id, $user){
     public function createNewTutorial($data, $tutorial_session_titles ,$user){
@@ -628,13 +644,14 @@ class TutorialModel extends CI_Model
     public function updateTutorialState($id, $state){
         return $this->updateTutorialData($id, array('STATE'=>$state));
     }
+    //寄發email
     public function authorizePendingTutorial($tut_id){
         $this->db->select('TUTORIAL_ID, TEACHER_ACCOUNT, TITLE');
         $tut_data= $this->getTutorialRow($tut_id);
         $teacher_data = $this->userModel->getUserRow($tut_data['TEACHER_ACCOUNT']);
         $course_url = base_url().'index.php/pages/tutorials/'.$tut_id;
         $msg = '您申請的課程 '.$tut_data['TITLE'].' 通過申請,進入募資階段,請點選以下連結觀看: '.$course_url;
-        $this->siteMsgModel->sendMsgToUser($teacher_data, '您開的課程 '.$tut_data['TITLE'].' 進入募資階段!', '您開的課:'.$tut_data['TITLE'].' 通過申請,進入募資階段,請點選以下連結觀看: '.$course_url, true);
+        $this->siteMsgModel->sendMsgToUser($teacher_data, '您開的課程 '.$tut_data['TITLE'].' 進入募資階段!', '您開的課：'.$tut_data['TITLE'].' 通過申請,進入開放選課的階段，您可以點擊下面連結瀏覽： '.$course_url, true);
         return $this->tutorialModel->updateTutorialData($tut_id, array('STATE'=>'raising_funds','FUNDING_START_TIME'=>date('Y-m-d H:i:s')));
     }
     // public function getTutorialSessionRowWithVideoId($vid_id){
@@ -719,5 +736,78 @@ class TutorialModel extends CI_Model
         //add the tutorial url
         //$row['WISHING_URL'] = base_url().'index.php/pages/tutorials/'.$row['WISH_ID'];        
         return $row;
+    }
+
+    //按讚功能
+    public function likeWishing($wish_id, $account){ 
+
+        $sql = "SELECT * FROM WISHING_SESSION WHERE WISH_ID='".$wish_id."' AND ACCOUNT='".$account."'";
+        $q = $this->db->query($sql);
+        $r = $q->result_array();
+        if($r){
+
+            $sql = "DELETE FROM WISHING_SESSION WHERE WISH_ID='".$wish_id."' AND ACCOUNT='".$account."'";
+            if($this->db->query($sql)){            
+                $this->db->select('DESIRE');
+                $this->db->where('WISH_ID', $wish_id);
+                $q = $this->db->get(TutorialModel::$WishingTableName); 
+                $r = $q->result_array();
+                $cnt = (int)($r[0]['DESIRE']) - 1;
+
+                $data = array(
+                       'DESIRE' => $cnt,
+                    );
+
+                $this->db->where('WISH_ID', $wish_id);
+
+                if($this->db->update(TutorialModel::$WishingTableName, $data))
+                    return true;                
+                else
+                    return false;
+
+            }else return false;
+        }
+        else{
+
+            $this->db->select('DESIRE');
+            $this->db->where('WISH_ID', $wish_id);
+            $q = $this->db->get(TutorialModel::$WishingTableName); 
+            $r = $q->result_array();
+            $cnt = (int)($r[0]['DESIRE']) + 1;
+
+            $data = array(
+                   'DESIRE' => $cnt,
+                );
+
+            $this->db->where('WISH_ID', $wish_id);
+
+            if($this->db->update(TutorialModel::$WishingTableName, $data)){
+                $data = array(
+                    'WISH_ID' => $wish_id,
+                    'ACCOUNT' => $account,
+                );
+
+                if($this->db->insert(TutorialModel::$WishingSessionTableName, $data))
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+    }
+    //按讚與否
+    public function checkLikeWishing($user){
+        $q = $this->db->get_where(TutorialModel::$WishingSessionTableName, array('ACCOUNT'=>$user));
+        $r = $q->result_array();
+        $output = array();
+        foreach($r as $row){
+            $output[] = $row['WISH_ID'];
+        }
+        if($output){
+            return $output;
+        }else{
+            return false;
+        }
     }
 }

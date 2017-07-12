@@ -1,43 +1,22 @@
-<br>
-<br>
-<div style="height: 100%;">
-    <div class="fill height wrapper">
-        <div class="ts narrow container">
-            <!-- <div class="ts icon fluid input">
-                <input id="keyword_input" type="text" placeholder="搜尋..." maxlength="32">
-                <i class="inverted circular search link icon" id='searchBtn'></i>
-            </div> -->
-            <br><br>
-            <button class="ts fluid positive basic button" id="btnLearn"">我想學</button>
-            <br>
-            <br>
-            <div class="ts three waterfall cards" id="cards_section">
-            </div>
-            <br>
-            <br>
-            <button class="ts fluid primary basic button" onclick="loadMore();">載入更多</button>
-        </div>
+
+<div class="ts narrow container">
+    <div class="ts big fluid dashed insetted slate">
+        <span class="header">心想課成，百試可樂</span>
+        <span class="description">兩岸學聲啼不住，夜半鐘聲大平臺</span>
     </div>
+    <!-- <div class="ts icon fluid input">
+        <input id="keyword_input" type="text" placeholder="搜尋..." maxlength="32">
+        <i class="inverted circular search link icon" id='searchBtn'></i>
+    </div> -->
+    <br><br>
+    <button class="ts fluid positive basic button" id="btnLearn">我想學</button>
+    <br><br>
+    <div class="ts three cards" id="cards_section">
+    </div>
+    <br><br>
+    <button class="ts fluid primary basic button" onclick="loadMore();">載入更多</button>
 </div>
 <script>
-// FB-SKD
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '673084749544580',
-      xfbml      : true,
-      version    : 'v2.9'
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-//end- FB-SKD
 //Sweet Alert
 document.querySelector('#btnLearn').onclick = function(){
     swal({
@@ -70,7 +49,7 @@ document.querySelector('#btnLearn').onclick = function(){
         '<label>期望的課程內容描述</label>'+
         '<textarea id="SHORT_INTRO" name="SHORT_INTRO" rows="3"></textarea></div>'+
         '<div class="inline field">'+
-        '<label>我想給誰教：</label>'+
+        '<label>推薦教師：</label>'+
         '<input id="TEACHER" name="TEACHER" type="text" placeholder="推薦人選"></div>'+
         '</div>'
         ,//animation: false,
@@ -148,15 +127,41 @@ document.querySelector('#btnLearn').onclick = function(){
                 var str = TutorialIconUtil.generateCard(rows[i]);
                 $('#cards_section').append(str);
             }
-        });
+            checkLikeStatus();
+        });        
         return false;
     }
+    //測試 案狀狀態 wish id
+    function checkLikeStatus(){
+        var rowsLiked = <?php echo json_encode($user_data['wishLikeList']);?>;
+        for(var i=0;i<rowsLiked.length;++i){
+            var str = '#'+rowsLiked[i];
+            $(str).find('i.thumbs.up').addClass('negative');
+            // console.log(str);
+        }
+    }
+    // end測試
     function loadMore(){
-        ++subtab_idx;
+        ++subtab_idx;        
         requestAndRender();
     }
     
     $('#searchBtn').click(function(){
         searchWishing();
+    }); 
+    $('#cards_section').on('click','.btnDesire',function(){
+        var cardId = $(this).attr('id');
+        var userAct = "<?php echo $user_data['ACCOUNT'];?>";
+        SimpleMsgHandler.handleRequest(true, TutorialController.likeWishing(cardId,userAct), function(resp){
+            console.log(JSON.stringify(resp));
+        });
+        var cnt = $(this).find('.label').text();
+        if($(this).find('i.thumbs.up').hasClass('negative')){
+            --cnt;
+        }else{
+            ++cnt;
+        }
+        $(this).find('.label').text(cnt);
+        $(this).find('i.thumbs.up').toggleClass('negative');
     });
 </script>
