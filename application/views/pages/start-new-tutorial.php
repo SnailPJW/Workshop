@@ -24,7 +24,7 @@
             <div class="content"><div class="title">詳細</div><div class="description">課程內容</div></div>
         </a>
     </div> 
-    <div class="ts padded attached segment">
+    <div class="ts very padded attached tertiary segment">
         <div class="ts relaxed stackable grid">
             <div class="ts five wide column raised info card" id='coursePreview' style="height: 450px;">
                 <div class="ts link small image" id="courseCover" data-tooltip-position="top center" data-tooltip="試試看上傳課程宣傳封面吧!">
@@ -55,13 +55,15 @@
                         <label>課程文宣標語 (49個字以內)</label>
                         <textarea id="short_intro" name="SHORT_INTRO" placeholder="輸入描述" maxlength="49" rows="2"></textarea>
                     </div>
-                    <div class="field">
-                        <label>課程宣傳封面 (圖檔)</label>
-                        <div class="wrapper" data-tooltip-position="top center" data-tooltip="試試看上傳課程宣傳封面吧!">
-                          <div class="file-upload">
-                            <i class="circular tiny cloud upload icon"></i>
-                            <input type="file" class="fileUpload" id="picture_file_upload2" accept="image/*">
-                          </div>
+                    <div class="ts three column grid">
+                        <div class="column field">
+                            <label>課程宣傳封面 (圖檔)</label>
+                            <div class="wrapper" data-tooltip-position="top center" data-tooltip="試試看上傳課程宣傳封面吧!">
+                              <div class="file-upload">
+                                <i class="circular tiny cloud upload icon"></i>
+                                <input type="file" class="fileUpload" id="picture_file_upload2" accept="image/*">
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,24 +111,28 @@
                             </select>
                         </div>
                     </div>
-                    <div class="field">
-                        <label>開課人數 (最少25人)</label>
-                        <input type="text" id="req_student_count" name="REQ_STUDENT_COUNT" placeholder="開課最少人數" value="25">
-                    </div>
-                    <div class="field">
-                        <label>預計上課地點</label>
-                        <input type="text" id="predicted_course_location" name="PREDICTED_COURSE_LOCATION" placeholder="星巴克、三創、光華、大稻埕">
+                    <div class="fields">
+                        <div class="field">
+                            <label>開課人數 (最少25人)</label>
+                            <input type="text" id="req_student_count" name="REQ_STUDENT_COUNT" placeholder="開課最少人數" value="25">
+                        </div>
+                        <div class="field">
+                            <label>預計上課地點</label>
+                            <input type="text" id="predicted_course_location" name="PREDICTED_COURSE_LOCATION" placeholder="星巴克、三創、光華、大稻埕">
+                        </div>
                     </div>
                 </div>
     <!-- ................................ 所需條件 ...................................... -->
                 <div class="formSection" id='step3' style='display:none;'>
-                    <div class="field">
-                        <label>上課所需之物品</label>
-                        <textarea name="NEEDED_ITEMS" maxlength="128" rows="2" placeholder="某個軟體、某種工具或某種材料"></textarea>
-                    </div>
-                    <div class="field">
-                        <label>學生必須具備之背景知識技能</label>
-                        <textarea name="REQ_KNOWLEDGE" maxlength="128" rows="2" placeholder="比較進階的課程，建議先跟學生說明必備的知識，幫助學生了解這堂課"></textarea>
+                    <div class="fields">
+                        <div class="field">
+                            <label>上課所需之物品</label>
+                            <textarea name="NEEDED_ITEMS" maxlength="128" rows="2" placeholder="某個軟體、某種工具或某種材料"></textarea>
+                        </div>
+                        <div class="field">
+                            <label>學生必須具備之背景知識技能</label>
+                            <textarea name="REQ_KNOWLEDGE" maxlength="128" rows="2" placeholder="比較進階的課程，建議先跟學生說明必備的知識，幫助學生了解這堂課"></textarea>
+                        </div>
                     </div>
                     <div class="field">
                         <label>上完這堂課程，預期學生的學習成效</label>
@@ -174,6 +180,23 @@
                         <label>預計總上課時數(小時)</label>
                         <input type="text" id="predicted_course_length" name="PREDICTED_COURSE_LENGTH" placeholder="15" value="15">
                     </div>
+                    <div class="field ts grid">
+                        <div class="four wide column">
+                            <div class="ts primary segment" id='external-events' data-tooltip-position="bottom center" data-tooltip="拖曳單元色塊至右側行事曆上">
+                                <p>單元安排</p>
+                                <div class='fc-event'>單元 1</div>
+                                <div class='fc-event'>單元 2</div>
+                                <div class='fc-event'>單元 3</div>
+                                <div class='fc-event'>單元 4</div>
+                                <div class='fc-event'>單元 5</div>
+                            </div>
+                        </div>
+                        <div class="twelve wide column">
+                            <div class="ts clearing segment">
+                                <div id='calendar'></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
     <!-- ................................ 詳細內容 ...................................... -->
                 <div class="formSection" id='step6' style='display:none;'>
@@ -181,24 +204,24 @@
                     <div class="row">
                     <!-- Simple MDE 編輯器 -->
                     <textarea id="mde"></textarea>
-                    <br>
-                    <div style="text-align: center;">
-                        <input type="button" id="sub_button" class="ts large basic positive icon button" onclick="submitNewTutorial();" disabled value="提交資料，等待審查">
-                        <!-- <button id="sub_button" class="ts large basic positive icon button" onclick="submitNewTutorial();" disabled>提交資料，等待審查</button> -->
-                    </div>
-                    <br>
                     </div>
                 </div>
             </form>
             <div class="row">
                 <div class="right floated column">
                     <div class="ts buttons">
-                        <button class="ts positive button" id='prev-step'>上一步</button>
+                        <button class="ts negative button" id='prev-step'>上一步</button>
                         <div class="or"></div>
                         <button class="ts primary pulsing button" id='next-step'>下一步</button>
+                        <div class="or"></div>
+                        <button id="btnSubmit" class="ts large positive disabled button">送出</button>
                     </div>
                 </div>
             </div>
+            <!-- <div id='wrap'>
+                <div id='calendar'></div>
+                <div style='clear:both'></div>
+            </div> -->
         </div><!-- grid end-->
     </div>
 </div>
@@ -218,6 +241,10 @@ $(function(){
             e.preventDefault();
             removeSession($(this));
             updateSubmitButton();
+        });
+        $(document).on('click','#btnSubmit', function(e){
+            e.preventDefault();//防止在Form裡的Button執行預設的Submit行為!
+            submitNewTutorial();
         });
         $('.fileUpload').on('change', function(){
             var tagID = $(this).attr('id');
@@ -247,6 +274,50 @@ $(function(){
         $('textarea').on('propertychange change click keyup input paste', function(){
             updateSubmitButton();
         });
+        /* initialize the external events
+        -----------------------------------------------------------------*/
+
+        $('#external-events .fc-event').each(function() {
+
+            // store data so the calendar knows to render an event upon drop
+            $(this).data('event', {
+                title: $.trim($(this).text()), // use the element's text as the event title
+                stick: true // maintain when user navigates (see docs on the renderEvent method)
+            });
+
+            // make the event draggable using jQuery UI
+            $(this).draggable({
+                zIndex: 999,
+                revert: true,      // will cause the event to go back to its
+                revertDuration: 0  //  original position after the drag
+            });
+
+        });
+
+        /* initialize the calendar
+        -----------------------------------------------------------------*/
+
+        $('#calendar').fullCalendar({
+            theme: true,
+            locale: 'zh-tw',
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today,month,agendaDay,listMonth'//month,agendaWeek,
+            },
+            contentHeight: 464,
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            droppable: true, // this allows things to be dropped onto the calendar
+            drop: function() {
+                // is the "remove after drop" checkbox checked?
+                // if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                // }
+            }
+        });
     });
 //頁籤Tab效果
 function nextTab(elem) {
@@ -262,20 +333,25 @@ function prevTab(elem) {
 $('.step').on('click',function(){
     $('.steps a').removeClass('active');
     $(this).addClass('active');
-    $('form .formSection').attr('style','display:none');
+    // $('form .formSection').attr('style','display:none');
+    $('form .formSection').hide();
     var $prehref = $(this).attr('href');
-    $($prehref).attr('style','display:block');
-    var stepHref = $(this).attr('href');
-    if(stepHref == '#step1'){
+    // $($prehref).attr('style','display:block');
+    $($prehref).show();
+    // var stepHref = $(this).attr('href');
+    if($prehref == '#step1'){
         $('#prev-step').addClass('disabled');
         $('#next-step').removeClass('disabled').addClass('pulsing');
         $('#coursePreview').attr('style','display:block').attr('style','height: 450px');
     }else{
         $('#coursePreview').attr('style','display:none');
         $('#prev-step').removeClass('disabled');
-        if(stepHref == '#step6'){
+        if($prehref == '#step6'){
             $('#next-step').addClass('disabled').removeClass('pulsing');
         }else{
+            if($prehref == '#step5'){
+                $('#calendar').fullCalendar('render');//顯示行事曆
+            }
             $('#next-step').removeClass('disabled').addClass('pulsing');
         }
     }
@@ -497,9 +573,12 @@ $('form').find("select[id='tutorial_category'],[id='tutorial_method']").on('chan
     function updateSubmitButton(){
         var filled = allInfoFilled();
         if(filled){
-            $('#sub_button').attr('disabled', false);
+            // $('#sub_button').attr('disabled', false);
+            $('#btnSubmit').removeClass('disabled');
+            $('#btnSubmit').addClass('pulsing');
         }else{
-            $('#sub_button').attr('disabled', true);
+            // $('#sub_button').attr('disabled', true);
+            $('#btnSubmit').addClass('disabled');
         }
     }
     function submitNewTutorial(){

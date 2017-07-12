@@ -38,7 +38,14 @@ window.smartsupp||(function(d) {
   <!-- MultiDatesPicker -->
   <link href="https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css" rel="stylesheet"></link>
   <link href="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.css" rel="stylesheet"></link>
-  
+  <!-- 行事曆-fullcalendar -->
+  <link rel="stylesheet" href="<?php echo base_url();?>asset/css/jquery-ui.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>asset/css/fullcalendar.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>asset/css/fullcalendar.print.min.css"  media='print'>
+  <script type="text/javascript" charset="utf8" src="<?php echo base_url();?>asset/js/moment.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="<?php echo base_url();?>asset/js/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="<?php echo base_url();?>asset/js/fullcalendar.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="<?php echo base_url();?>asset/js/zh-tw.js"></script>
   <!-- Tocas UI CSS or JS -->
   <link rel="stylesheet" href="<?php echo base_url();?>asset/css/tocas.css">
   <script type="text/javascript" charset="utf8" src="<?php echo base_url();?>asset/js/tocas.dev.js"></script>
